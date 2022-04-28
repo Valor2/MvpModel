@@ -1,0 +1,6 @@
+rootProject.name = "TextModule"
+include ':app'
+include ':moduledframe'
+
+include ':moduleH5'
+include ':moduleUser'

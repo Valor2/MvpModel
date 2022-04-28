@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".h5.H5WebActivity">
+
+    <include layout="@layout/title_bar"/>
+    <Button
+        android:id="@+id/button_me"
+        android:layout_width="wrap_content"
+        android:text="跳转我的"
+        android:layout_height="wrap_content"/>
+    <WebView
+        android:id="@+id/h5webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></WebView>
+
+</LinearLayout>

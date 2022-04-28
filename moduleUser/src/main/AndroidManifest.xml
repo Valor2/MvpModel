@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.moduleuser">
+
+    <application>
+        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".UserActivity" />
+    </application>
+
+</manifest>
