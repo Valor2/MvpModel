@@ -2,16 +2,20 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+
+def androidConfig = rootProject.ext.androidConfig
+def appId = rootProject.ext.applicationId
+
 android {
-    compileSdkVersion 32
-    buildToolsVersion "32.0.0"
+    compileSdkVersion androidConfig.compileSdkVersion
+    buildToolsVersion androidConfig.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.example.textmodule"
-        minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 1
-        versionName "1.0"
+        applicationId appId.app
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode androidConfig.versionCode
+        versionName androidConfig.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -45,8 +49,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(path: ':moduledframe')
-    implementation project(path: ':moduleH5')
-    implementation project(path: ':moduleUser')
 
-    compile 'com.alibaba:arouter-compiler:1.1.4'
+    if (isModuleMode) {
+        implementation project(path: ':moduleH5')
+        implementation project(path: ':moduleUser')
+    }
+
+    implementation 'com.alibaba:arouter-compiler:1.1.4'
 }

@@ -1,0 +1,24 @@
+ext{
+
+    // 是否是模块化模式
+    // 集成模式 true ( 默认模式 , 模块化 )
+    // 组件模式 false ( 组件化 )
+    isModuleMode = true
+
+    androidConfig = [
+        compileSdkVersion :32,
+        buildToolsVersion :"32.0.0",
+        minSdkVersion :21,
+        targetSdkVersion :32,
+        versionCode :1,
+        versionName :"1.0"
+    ]
+
+    applicationId = [
+            "app" : "com.example.textmodule",
+            "moduleH5" : "com.example.moduleh5",
+            "moudleUser" : "com.example.moduleuser",
+            "moudledframe" : "com.example.moduledframe",
+    ]
+
+}
