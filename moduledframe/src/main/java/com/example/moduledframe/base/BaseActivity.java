@@ -14,10 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 
-import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.moduledframe.R;
 import com.example.moduledframe.mvpbase.MvpBaseActivity;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.utils.ActivityCollector;
+import com.example.moduledframe.utils.StatusCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -44,13 +45,13 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        StatusCompat.setStatusBarColors(this,  R.color.white);
+        StatusCompat.setStatusBarColors(this,  R.color.white);
         context = this;
         //activity管理
         ActivityCollector.addActivity(this);
 
 
-        ARouter.getInstance().inject(this);// ARouter 注入
+//        ARouter.getInstance().inject(this);// ARouter 注入
         try {
             int layoutResID =   initView(savedInstanceState);
             if (layoutResID != 0) {
