@@ -40,7 +40,7 @@ import java.lang.ref.WeakReference;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActivity<P>  {
+public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActivity<P> implements IBaseView {
     //获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
 
@@ -292,12 +292,32 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
         }
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void showProgress(String message) {
+        showProgress(message,15);
+    }
+
+    @Override
+    public void showProgress(int strRes) {
+        showProgress(getString(strRes));
+    }
+
+    @Override
+    public void showToast(int res) {
+        showToast(getString(res));
+    }
+
     /**
      * 显示提示  toast
      *
      * @param msg 提示信息
      */
-    @SuppressLint("ShowToast")
+    @Override
     public void showToast(String msg) {
         try {
             if (null == toast) {
@@ -325,7 +345,6 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
 
     }
 
-
     public void layoutBack() {
         try{
             Resources res = getResources();
@@ -348,7 +367,6 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
     protected void finishThisPage() {
         this.finish();
     }
-
 
     /**
      * 隐藏软键盘

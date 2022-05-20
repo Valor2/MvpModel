@@ -20,6 +20,7 @@ import com.example.moduledframe.mvpbase.MvpBaseFragment;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.net.NetWorkStatu;
 import com.example.moduledframe.utils.EventEntity;
+import com.example.moduledframe.utils.ToastUtil;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -105,6 +106,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
      */
 
 
+
     @Override
     public void showProgress(boolean flag, String message) {
         if (getStatus()) {
@@ -138,6 +140,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
     @Override
     public void setProgressCancelListener(DialogInterface.OnCancelListener onCancelListener) {
         getBaseActivity().setProgressCancelListener(onCancelListener);
+    }
+
+    @Override
+    public void showToast(int res) {
+        ToastUtil.show(res+"");
+    }
+
+    @Override
+    public void showToast(String msg) {
+        ToastUtil.show(msg);
     }
 
     public boolean isAttachedToActivity() {

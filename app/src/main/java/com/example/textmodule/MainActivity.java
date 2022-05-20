@@ -3,6 +3,7 @@ package com.example.textmodule;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -75,4 +76,6 @@ public class MainActivity extends BaseActivity<BaseNullKtPresenter> {
             }
         });
     }
+
+
 }
