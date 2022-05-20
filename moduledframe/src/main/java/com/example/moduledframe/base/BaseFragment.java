@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 
+import com.example.moduledframe.mvpbase.IBaseView;
 import com.example.moduledframe.mvpbase.MvpBaseFragment;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.net.NetWorkStatu;
@@ -36,7 +37,7 @@ import butterknife.Unbinder;
  * @author kenny
  * @date 2020/5/14.
  */
-public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragment<P> {
+public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragment<P> implements IBaseView {
 
     public final String TAG = BaseFragment.this.getClass().getSimpleName();
     public ViewGroup mView;
@@ -47,7 +48,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
     protected boolean isKt=false;
     protected Gson gson = new Gson();
     protected View contentView;
-
 
 
     public BaseFragment() {
@@ -99,6 +99,47 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
         }
     }
 
+    /**
+     * 获取Activity
+     * @return
+     */
+
+
+    @Override
+    public void showProgress(boolean flag, String message) {
+        if (getStatus()) {
+            getBaseActivity().showProgress(flag, message);
+        }
+    }
+
+    @Override
+    public void showProgress(String message) {
+        showProgress(true, message);
+    }
+
+    public void showProgress(String msg, int sec) {
+        getBaseActivity().showProgress(msg, sec);
+    }
+
+    @Override
+    public void showProgress(int strRes) {
+        showProgress(getString(strRes));
+    }
+
+    @Override
+    public void hideProgress() {
+        try {
+            getBaseActivity().hideProgress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setProgressCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+        getBaseActivity().setProgressCancelListener(onCancelListener);
+    }
+
     public boolean isAttachedToActivity() {
         return !isRemoving() && contentView != null;
     }
@@ -127,12 +168,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
     }
 
 
-//    public Boolean isSingIN() {
-//        return getBaseActivity().isSingIN();
-//    }
-
-
-
+    public Boolean isSingIN() {
+        return getBaseActivity().isSingIN();
+    }
 
     private void initToolBar(View view) {
     }
@@ -147,9 +185,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
         if (mBinder != null) {
             mBinder.unbind();
         }
-
         contentView = null;
-
         try {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
@@ -206,7 +242,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
         }
         mAlertDialog = builder.create();
         mAlertDialog.show();
-
         return mAlertDialog;
     }
 
@@ -233,7 +268,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
         return (BaseActivity) getActivity();
     }
 
-
     public void startActivity(Class cls) {
         startActivity(new Intent(getContext(), cls));
     }
@@ -244,10 +278,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
     public void onDestroy() {
         super.onDestroy();
         dismissConfirmDialog();
-    }
-
-    // 刷新频道排序的一个方法,提供子类需要的重写
-    public void refreshChannelSort(String json, String current) {
     }
 
     @Override

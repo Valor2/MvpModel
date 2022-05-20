@@ -1,34 +1,46 @@
 package com.example.moduledframe.base;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Message;
 import android.view.InflateException;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
 import com.example.moduledframe.R;
+import com.example.moduledframe.dialog.LoadingDialogFm;
+import com.example.moduledframe.mvpbase.IBaseView;
 import com.example.moduledframe.mvpbase.MvpBaseActivity;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.utils.ActivityCollector;
+import com.example.moduledframe.utils.AntiShakeUtil;
 import com.example.moduledframe.utils.EventEntity;
 import com.example.moduledframe.utils.StatusCompat;
+import com.example.moduledframe.utils.Timer_Task;
+import com.example.moduledframe.utils.spfkey.SPFKey;
+import com.example.moduledframe.utils.spfkey.SPfUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActivity<P> {
+public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActivity<P>  {
     //获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
 
@@ -36,14 +48,15 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
     private boolean isAllowScreenRoate = true;
     //封装Toast对象
     private static Toast toast;
-
     public Context context;
-
     protected Unbinder mBinder;
-    protected boolean isKt=false;
 
     private View layoutBack;
     public int mColorId;//顶部颜色ID
+
+    private static LoadingDialogFm loading;
+    private Timer_Task loadingTimer;
+    private MyHandler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +102,6 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
         initData();
     }
 
-
     /**
      * 初始化控件
      */
@@ -99,6 +111,145 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
      * 设置数据
      */
     protected abstract void initData();
+
+    public void setProgressCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+    }
+    public synchronized void showProgress(final boolean flag, final String message) {
+        if (loading != null) {
+            loading.dismiss();
+            loading = null;
+        }
+
+        if(AntiShakeUtil.check()){
+            return;
+        }
+
+        loading = new LoadingDialogFm(message);
+        try{
+            if(ActivityManager.isUserAMonkey()){
+                loading.setCancelable(true);
+            }else{
+                loading.setCancelable(true);//点击外部可取消  2020/8/25 by csj
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        loading.show(getSupportFragmentManager(), "");
+    }
+
+    public void hideProgress() {
+        try {
+            if(loadingTimer != null){
+                loadingTimer.stopTimer();
+            }
+            if (loading != null) {
+                if (!loading.canClose()) {
+                    getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                if(loading != null){
+                                    loading.dismiss();
+                                    loading = null;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 300);
+                }else{
+                    loading.dismiss();
+                    loading = null;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public MyHandler getHandler() {
+        if (mHandler == null) {
+            mHandler = new MyHandler(this);
+        }
+        return mHandler;
+    }
+
+    public static class MyHandler extends android.os.Handler {
+        private WeakReference<BaseActivity> mWeakReference;
+        public MyHandler(BaseActivity act) {
+            mWeakReference = new WeakReference<>(act);
+        }
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            BaseActivity act = mWeakReference.get();
+            if (act != null) {
+                act.processMessage(msg);
+            }
+            if (msg.what == 400) {
+                try {
+                    if (loading != null) {
+                        if (loading.getTagSec() == 2) {
+                            loading.dismiss();
+                            loading = null;
+                            if (act != null) {
+                                act.showToast("网络不可用,请稍后再试!");
+                            }
+                        } else {
+                            if (act != null) {
+                                act.showProgress("网络信号不太好,请耐心等待!", 30);
+                            }
+                            loading.setTagSec(2);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    protected void processMessage(Message message) {
+    }
+
+    public synchronized void showProgress(String message, int sec) {
+        try{
+            showProgress(true,message);
+            if(sec > 0){
+                if(loadingTimer == null){
+                    loadingTimer = new Timer_Task(getHandler(),400,sec * 1000L,null,1);
+                }
+                loadingTimer.startTimer();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(int what, Object obj) {
+        if (mHandler != null) {
+            Message msg = mHandler.obtainMessage();
+            msg.what = what;
+            msg.obj = obj;
+            mHandler.sendMessage(msg);
+        }
+    }
+
+    public void sendHandlerMessage(int what) {
+        Message msg = Message.obtain();
+        msg.what = what;
+        if (mHandler != null) {
+            mHandler.sendMessage(msg);
+        } else {
+//            LogUtil.i(TAG, "baseHandler为空");
+        }
+    }
+
+    public Boolean isSingIN() {
+        return SPfUtil.getInstance().getBoolean(SPFKey.IsSingIN);
+    }
 
     /**
      * 是否允许屏幕旋转
