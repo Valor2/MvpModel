@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity<BaseNullKtPresenter> {
 
     @Override
     public int initView(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        mColorId = R.color.colors_gules;
         return R.layout.activity_main;
     }
 

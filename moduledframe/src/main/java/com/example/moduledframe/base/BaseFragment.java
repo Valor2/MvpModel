@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.moduledframe.mvpbase.MvpBaseFragment;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.net.NetWorkStatu;
+import com.example.moduledframe.utils.EventEntity;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -114,6 +115,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
 
     public abstract View initView(@NotNull View contentView, @Nullable Bundle savedInstanceState);
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventEntity eventEntity) {
+
+    }
 
     @Override
     public void onDetach() {

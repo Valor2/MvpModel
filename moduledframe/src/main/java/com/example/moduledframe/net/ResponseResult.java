@@ -3,6 +3,8 @@ package com.example.moduledframe.net;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.moduledframe.utils.spfkey.SPFKey;
+
 public class ResponseResult<T> implements Parcelable {
     private int code;
     private String message;
@@ -26,7 +28,7 @@ public class ResponseResult<T> implements Parcelable {
     };
 
     public boolean isSuccess(){
-        return code == 0;
+        return code == SPFKey.isSuccess;
     }
 
     public int getCode() {

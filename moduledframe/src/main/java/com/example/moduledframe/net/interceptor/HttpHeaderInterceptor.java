@@ -3,6 +3,10 @@ package com.example.moduledframe.net.interceptor;
 
 
 
+import com.example.moduledframe.utils.Utils;
+import com.example.moduledframe.utils.spfkey.SPFKey;
+import com.example.moduledframe.utils.spfkey.SPfUtil;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -17,7 +21,7 @@ public class HttpHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         //  配置请求头
-        String token = "";//SPfUtil.getInstance().getString(SPFKey.TOKEN);
+        String token = SPfUtil.getInstance().getString(SPFKey.TOKEN);
 //        String mIMEI = Utils.getIMEI();
 //        Log.d("token and imei",token +"  "+mIMEI);
 //        String origin_id="0";
@@ -25,11 +29,11 @@ public class HttpHeaderInterceptor implements Interceptor {
 //            origin_id="1";
 //        }
         Request request = chain.request().newBuilder()
-                .addHeader("Web-Token", token)
+                .addHeader("Authorization", token)
 //                .addHeader("version",Utils.getBaseAppVersionName())//获取版本号 1.0.7
 //                .addHeader("version-name",  Utils.getAppVersionCode(BaseApplication.getContext()))//获取版本号  5
-                .addHeader("device","Android")
-                .addHeader("companyId","MITAO")
+                .addHeader("deviceId", SPfUtil.getInstance().getString(SPFKey.DeviceId))
+                .addHeader("version","1.1")
 //                .addHeader("unique-device",mIMEI)
 //                .addHeader("Device-Model", ROMTools.getName())
                 .addHeader("Content-Type", "application/json;charset=utf-8")
