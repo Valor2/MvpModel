@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +26,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.moduledframe.utils.Utils;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -145,6 +151,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public abstract int getCloseBtnId();
 
     public abstract String getLocation();
+
 
 
 

@@ -7,12 +7,12 @@ import com.example.moduledframe.utils.spfkey.SPFKey;
 
 public class ResponseResult<T> implements Parcelable {
     private int code;
-    private String message;
+    private String msg;
     private T data;
 
     protected ResponseResult(Parcel in) {
         code = in.readInt();
-        message = in.readString();
+        msg = in.readString();
     }
 
     public static final Creator<ResponseResult> CREATOR = new Creator<ResponseResult>() {
@@ -40,11 +40,11 @@ public class ResponseResult<T> implements Parcelable {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 
     public T getData() {
@@ -63,6 +63,6 @@ public class ResponseResult<T> implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(code);
-        dest.writeString(message);
+        dest.writeString(msg);
     }
 }

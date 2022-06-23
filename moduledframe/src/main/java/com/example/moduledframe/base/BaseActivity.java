@@ -26,6 +26,7 @@ import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.utils.ActivityCollector;
 import com.example.moduledframe.utils.AntiShakeUtil;
 import com.example.moduledframe.utils.EventEntity;
+import com.example.moduledframe.utils.StatusBarUtil;
 import com.example.moduledframe.utils.StatusCompat;
 import com.example.moduledframe.utils.Timer_Task;
 import com.example.moduledframe.utils.spfkey.SPFKey;
@@ -97,7 +98,9 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         //初始化控件
-
+        if (StatusBarUtil.hasNavigationBarShow(getContext())) {
+            getWindow().getDecorView().findViewById(android.R.id.content).setPadding(0, 0, 0, StatusBarUtil.getNavigationBarHeight(getContext()));
+        }
         //设置数据
         initData();
     }
