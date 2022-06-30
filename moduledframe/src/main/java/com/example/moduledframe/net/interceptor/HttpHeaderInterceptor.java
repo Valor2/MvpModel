@@ -34,7 +34,7 @@ public class HttpHeaderInterceptor implements Interceptor {
 //                .addHeader("version-name",  Utils.getAppVersionCode(BaseApplication.getContext()))//获取版本号  5
                 .addHeader("deviceId", SPfUtil.getInstance().getString(SPFKey.DeviceId))
                 .addHeader("version","1.1")
-//                .addHeader("unique-device",mIMEI)
+                .addHeader("userPlatform","android")
 //                .addHeader("Device-Model", ROMTools.getName())
                 .addHeader("Content-Type", "application/json;charset=utf-8")
                 .addHeader("Accept","application/json;charset=utf-8")
