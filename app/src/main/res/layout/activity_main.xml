@@ -38,4 +38,11 @@
         android:text="mvp跳转"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开loading"
+        tools:ignore="MissingConstraints" />
+
 </LinearLayout>

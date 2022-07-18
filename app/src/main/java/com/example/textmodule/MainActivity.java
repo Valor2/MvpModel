@@ -32,6 +32,12 @@ public class MainActivity extends BaseActivity<BaseNullKtPresenter> {
     public void initData() {
 //        ARouter.getInstance().inject(this); // ARouter 注入
 
+        findViewById(R.id.loading).setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                showProgress("");
+            }
+        });
         findViewById(R.id.mvp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

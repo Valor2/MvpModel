@@ -70,6 +70,7 @@ public class LoadingDialogFm extends BaseDialogFragment {
 
     @Override
     public View initData(View view) {
+        getDialog().setCanceledOnTouchOutside(false);
         msgtext = view.findViewById(R.id.msgtext);
         animIv = view.findViewById(R.id.animIv);
 
