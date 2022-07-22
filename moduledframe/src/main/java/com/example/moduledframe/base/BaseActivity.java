@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
@@ -96,6 +97,14 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // 背景颜色
+//            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+            // 黑色文字
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            // 白色文字
+            // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
         //初始化控件
 //        if (StatusBarUtil.hasNavigationBarShow(getContext())) {
@@ -400,6 +409,7 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
         //activity管理
         ActivityCollector.removeActivity(this);
     }
+
 
 
 }

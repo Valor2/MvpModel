@@ -3,6 +3,7 @@
     android:id="@+id/titleBar"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:layout_marginTop="@dimen/dp_25"
     android:background="@color/white"
     android:orientation="vertical">
 
