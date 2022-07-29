@@ -27,11 +27,12 @@ import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.utils.ActivityCollector;
 import com.example.moduledframe.utils.AntiShakeUtil;
 import com.example.moduledframe.utils.EventEntity;
-import com.example.moduledframe.utils.StatusBarUtil;
+
 import com.example.moduledframe.utils.StatusCompat;
 import com.example.moduledframe.utils.Timer_Task;
 import com.example.moduledframe.utils.spfkey.SPFKey;
 import com.example.moduledframe.utils.spfkey.SPfUtil;
+import com.jaeger.library.StatusBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -106,6 +107,8 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
             // 白色文字
             // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.title_text),0);
+
         //初始化控件
 //        if (StatusBarUtil.hasNavigationBarShow(getContext())) {
 //            getWindow().getDecorView().findViewById(android.R.id.content).setPadding(0, 0, 0, StatusBarUtil.getNavigationBarHeight(getContext()));
