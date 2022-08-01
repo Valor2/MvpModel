@@ -9,7 +9,8 @@ public interface SPFKey {
     String WhiteAndheaven = "WhiteAndheaven";
     String SHARE_IS_FIRST= "SHARE_IS_FIRST";// 是否第一次启动
 
-
-
+    String Version_Number = "Version_Number";// 版本号
+    String Tenant_code = "tenant_code";// 租户编号
+    String Tenant_type = "tenant_type";// 租户类型
 
 }

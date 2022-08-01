@@ -74,9 +74,6 @@ public abstract class DefaultObserver<T> implements Observer<ResponseResult<T>> 
             ApiException apiException = (ApiException) e;
             int code = apiException.getErrorCode();
 
-            if(code!=112){
-//                ToastUtil.show(BaseApplication.getContext(), "[" + code + "]" + e.getMessage());
-            }
             //如果服务器返回用户已经退出, 我们要先判断当前是否是登录状态,如果是登录,就发广播通知界面更新,否则不进行多次刷新.
             if ((code == NetConstant.NO_EXPIRED || code == NetConstant.FORCED_TO_LOGOFF_ERROR || code == NetConstant.USER_LOGIN_OUT_OK_ERROR) && SPfUtil.getInstance().getBoolean(SPFKey.IsSingIN)) {//账号过期或账号未登录
 //                EventBus.getDefault().postSticky(new PushMsgEvent(PushMsgEvent.JPUSH_TYPE_UNREAD_MSG_NUM, "-1"));
