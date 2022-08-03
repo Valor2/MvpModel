@@ -8,6 +8,7 @@ import com.example.moduledframe.net.ResponseResult;
 import com.example.moduledframe.net.interceptor.exception.ApiException;
 import com.example.moduledframe.net.interceptor.exception.NoDataExceptionException;
 import com.example.moduledframe.net.interceptor.exception.ServerResponseException;
+import com.example.moduledframe.utils.EventEntity;
 import com.example.moduledframe.utils.spfkey.SPFKey;
 import com.example.moduledframe.utils.spfkey.SPfUtil;
 import com.google.gson.JsonParseException;
@@ -75,9 +76,9 @@ public abstract class DefaultObserver<T> implements Observer<ResponseResult<T>> 
             int code = apiException.getErrorCode();
 
             //如果服务器返回用户已经退出, 我们要先判断当前是否是登录状态,如果是登录,就发广播通知界面更新,否则不进行多次刷新.
-            if ((code == NetConstant.NO_EXPIRED || code == NetConstant.FORCED_TO_LOGOFF_ERROR || code == NetConstant.USER_LOGIN_OUT_OK_ERROR) && SPfUtil.getInstance().getBoolean(SPFKey.IsSingIN)) {//账号过期或账号未登录
-//                EventBus.getDefault().postSticky(new PushMsgEvent(PushMsgEvent.JPUSH_TYPE_UNREAD_MSG_NUM, "-1"));
-//                EventBus.getDefault().post(new ClearUnReadEvent(4));
+            if ((code == NetConstant.NO_EXPIRED || code == NetConstant.FORCED_TO_LOGOFF_ERROR
+                    || code == NetConstant.USER_LOGIN_OUT_OK_ERROR) && SPfUtil.getInstance().getBoolean(SPFKey.IsSingIN)) {//账号过期或账号未登录
+                EventBus.getDefault().post(new EventEntity(code,e.getMessage(),""));
                 SPfUtil.getInstance().setBoolean(SPFKey.IsSingIN, false);
 //                SPfUtil.getInstance().remove(SPFKey.LoginBean);
             }
