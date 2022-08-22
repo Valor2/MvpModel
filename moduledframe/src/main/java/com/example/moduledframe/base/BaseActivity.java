@@ -49,7 +49,7 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
     //是否允许旋转屏幕
     private boolean isAllowScreenRoate = true;
     //封装Toast对象
-    private static Toast toast;
+    private  Toast toast;
     public Context context;
     protected Unbinder mBinder;
 
