@@ -403,6 +403,7 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
         if (mBinder != null) {
             mBinder.unbind();
         }
+        EventBus.getDefault().unregister(this);
         //activity管理
         ActivityCollector.removeActivity(this);
     }

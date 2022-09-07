@@ -289,6 +289,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends MvpBaseFragm
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         dismissConfirmDialog();
     }
 
