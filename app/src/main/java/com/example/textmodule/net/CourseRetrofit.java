@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CourseRetrofit extends RetrofitUtil {
     private static String BASE_URL="https://uat-jk.jlflove.com/flove/";
 
+    private static String BASE_URL2="https://uat-jk.jlflove.com/flove1/";
 
     public static void getCourse(DefaultObserver<List<Object>> observer, String json) {
         Map<String, Object> map = new HashMap<>();
@@ -20,6 +21,20 @@ public class CourseRetrofit extends RetrofitUtil {
         map.put("page", 1);
         map.put("page_size", "20");
         getGsonRetrofitNoCache(BASE_URL)
+                .create(ApiCourseService.class)
+                .getTestList(toJsonBody(map))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+
+    public static void getCourse2(DefaultObserver<List<Object>> observer, String json) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("channel_id", "");
+        map.put("page", 1);
+        map.put("page_size", "20");
+        getGsonRetrofitNoCache(BASE_URL2)
                 .create(ApiCourseService.class)
                 .getTestList(toJsonBody(map))
                 .subscribeOn(Schedulers.io())

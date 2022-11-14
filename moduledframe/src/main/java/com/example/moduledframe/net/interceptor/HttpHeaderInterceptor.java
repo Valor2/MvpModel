@@ -30,6 +30,7 @@ public class HttpHeaderInterceptor implements Interceptor {
 //        }
         Request request = chain.request().newBuilder()
                 .addHeader("Authorization", token)
+                .addHeader("X-Access-Token", token)
 //                .addHeader("version",Utils.getBaseAppVersionName())//获取版本号 1.0.7
 //                .addHeader("version-name",  Utils.getAppVersionCode(BaseApplication.getContext()))//获取版本号  5
                 .addHeader("deviceId", SPfUtil.getInstance().getString(SPFKey.DeviceId))

@@ -29,5 +29,6 @@ class MvpActivity : BaseActivity<MvpPresenter>() {
         textView.text = "自定义接口请求"
 
         presenter.getCourse("","")
+        presenter.getCourse1("","")
     }
 }

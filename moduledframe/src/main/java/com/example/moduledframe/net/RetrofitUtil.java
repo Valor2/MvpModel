@@ -41,8 +41,14 @@ public class RetrofitUtil {
     private static Retrofit retrofit;
 
     public static Retrofit getGsonRetrofit(String url) {
-        if (retrofit == null) {
+
+        if(url.equals(httpUrl)){
+            if (retrofit == null) {
+                retrofit = baseRetrofit(url).build();
+            }
+        }else {
             retrofit = baseRetrofit(url).build();
+            httpUrl = url;
         }
         return retrofit;
     }
@@ -55,11 +61,23 @@ public class RetrofitUtil {
     private static Retrofit retrofitNoCache;
 
     public static Retrofit getGsonRetrofitNoCache(String url) {
-        if (retrofitNoCache == null) {
+
+        if(url.equals(httpUrl)){
+            if (retrofitNoCache == null) {
+                retrofitNoCache = baseRetrofitNoCache(url).build();
+            }
+        }else {
             retrofitNoCache = baseRetrofitNoCache(url).build();
+            httpUrl = url;
         }
+
+//        if (retrofitNoCache == null) {
+//            retrofitNoCache = baseRetrofitNoCache(url).build();
+//        }
         return retrofitNoCache;
     }
+
+
 
     /**
      * 无网: 读取缓存
@@ -70,8 +88,13 @@ public class RetrofitUtil {
     private static Retrofit retrofitCache;
 
     public static Retrofit getGsonRetrofitCache(String url) {
-        if (retrofitCache == null) {
+        if(url.equals(httpUrl)){
+            if (retrofitCache == null) {
+                retrofitCache = baseRetrofitCache(url).build();
+            }
+        }else {
             retrofitCache = baseRetrofitCache(url).build();
+            httpUrl = url;
         }
         return retrofitCache;
     }

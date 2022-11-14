@@ -28,5 +28,17 @@ public class MvpPresenter extends BasePresenter<MvpContract.View> {
         },"");
     }
 
+    public void getCourse1(String strpath,String contentEt){
+        CourseRetrofit.getCourse2(new DefaultObserver<List<Object>>() {
+            @Override
+            public void onSuccess(ResponseResult<List<Object>> result) {
 
+            }
+
+            @Override
+            public void onException(int code, String eMsg) {
+
+            }
+        },"");
+    }
 }
