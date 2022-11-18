@@ -2,6 +2,7 @@ package com.example.textmodule.net;
 
 import com.example.moduledframe.net.RetrofitUtil;
 import com.example.moduledframe.net.interceptor.DefaultObserver;
+import com.example.moduledframe.net.interceptor.converter.MyConverterFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class CourseRetrofit extends RetrofitUtil {
         map.put("channel_id", "");
         map.put("page", 1);
         map.put("page_size", "20");
-        getGsonRetrofitNoCache(BASE_URL2)
+        getGsonRetrofitNoCache(BASE_URL2, MyConverterFactory.create())
                 .create(ApiCourseService.class)
                 .getTestList(toJsonBody(map))
                 .subscribeOn(Schedulers.io())

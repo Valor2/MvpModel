@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -70,13 +71,21 @@ public class RetrofitUtil {
             retrofitNoCache = baseRetrofitNoCache(url).build();
             httpUrl = url;
         }
-
-//        if (retrofitNoCache == null) {
-//            retrofitNoCache = baseRetrofitNoCache(url).build();
-//        }
         return retrofitNoCache;
     }
 
+    public static Retrofit getGsonRetrofitNoCache(String url, Converter.Factory factory) {
+
+        if(url.equals(httpUrl)){
+            if (retrofitNoCache == null) {
+                retrofitNoCache = baseRetrofitNoCache(url,factory).build();
+            }
+        }else {
+            retrofitNoCache = baseRetrofitNoCache(url,factory).build();
+            httpUrl = url;
+        }
+        return retrofitNoCache;
+    }
 
 
     /**
@@ -168,6 +177,14 @@ public class RetrofitUtil {
                 .client(getOKhttpBuilderNoCache().build())
                 .baseUrl(url)
                 .addConverterFactory(MyConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+    }
+
+    public static Retrofit.Builder baseRetrofitNoCache(String url, Converter.Factory factory) {
+        return new Retrofit.Builder()
+                .client(getOKhttpBuilderNoCache().build())
+                .baseUrl(url)
+                .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }
 
