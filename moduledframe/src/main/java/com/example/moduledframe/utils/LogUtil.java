@@ -35,6 +35,52 @@ public class LogUtil {
 		}
 	}
 
+	public static void v(Class cl,String message){
+		if(TextUtils.isEmpty(message)){
+			return;
+		}
+		if(NetConstant.LOGON){
+			Log.v(cl.getSimpleName(), message);
+		}
+	}
+
+	public static void d(Class cl,String message){
+		if(TextUtils.isEmpty(message)){
+			return;
+		}
+		if(NetConstant.LOGON){
+			Log.d(cl.getSimpleName(), message);
+		}
+	}
+
+	public static void e(Class cl,String message){
+		if(TextUtils.isEmpty(message)){
+			return;
+		}
+		if(NetConstant.LOGON){
+			Log.e(cl.getSimpleName(), message);
+		}
+	}
+
+	public static void d(String Tag, String Message) {
+		if(TextUtils.isEmpty(Message)){
+			return;
+		}
+		if (NetConstant.LOGON) {
+			Log.d(Tag, Message);
+		}
+	}
+
+	public static void v(String Tag, String Message) {
+		if(TextUtils.isEmpty(Message)){
+			return;
+		}
+		if (NetConstant.LOGON) {
+			Log.v(Tag, Message);
+		}
+	}
+
+
 	public static void i(String Tag, String format, Object... args) {
 
 		if(TextUtils.isEmpty(format)){
@@ -105,4 +151,6 @@ public class LogUtil {
 			}
 		}
 	}
+
+
 }
