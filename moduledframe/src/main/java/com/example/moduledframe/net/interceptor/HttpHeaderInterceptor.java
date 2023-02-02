@@ -41,6 +41,7 @@ public class HttpHeaderInterceptor implements Interceptor {
                 .addHeader("Content-Type", "application/json;charset=utf-8")
                 .addHeader("Accept","application/json;charset=utf-8")
                 .addHeader("Accept-Encoding", "identity")
+                .addHeader("Content-Language","zh_CN")
 //                .addHeader("Drives", Utils.getUserAgent())
 //                .addHeader("Origin-Id",origin_id)
 //                .addHeader("Channel-Name", Utils.getMetaData(BaseApplication.getContext(),"UMENG_CHANNEL"))
