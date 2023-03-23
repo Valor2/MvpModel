@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.example.moduledframe.utils.ActivityCollector;
 import com.example.moduledframe.utils.AntiShakeUtil;
 import com.example.moduledframe.utils.EventEntity;
 
+import com.example.moduledframe.utils.FontCompatUtils;
 import com.example.moduledframe.utils.StatusCompat;
 import com.example.moduledframe.utils.Timer_Task;
 import com.example.moduledframe.utils.spfkey.SPFKey;
@@ -406,6 +408,17 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
         EventBus.getDefault().unregister(this);
         //activity管理
         ActivityCollector.removeActivity(this);
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (FontCompatUtils.shouldChangeFontScale(newConfig))
+            getResources();
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public Resources getResources() {
+        return FontCompatUtils.getResources(super.getResources());
     }
 
 

@@ -1,6 +1,8 @@
 package com.example.moduledframe.base;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 
+import com.example.moduledframe.utils.FontCompatUtils;
 import com.example.moduledframe.utils.Utils;
 
 import java.util.HashMap;
@@ -151,6 +154,14 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public abstract int getCloseBtnId();
 
     public abstract String getLocation();
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (FontCompatUtils.shouldChangeFontScale(newConfig))
+            getResources();
+        super.onConfigurationChanged(newConfig);
+    }
 
 
 

@@ -77,7 +77,7 @@ public abstract class DefaultObserver<T> implements Observer<ResponseResult<T>> 
 
             //如果服务器返回用户已经退出, 我们要先判断当前是否是登录状态,如果是登录,就发广播通知界面更新,否则不进行多次刷新.
             if ((code == NetConstant.NO_EXPIRED || code == NetConstant.FORCED_TO_LOGOFF_ERROR
-                    || code == NetConstant.USER_LOGIN_OUT_OK_ERROR) && SPfUtil.getInstance().getBoolean(SPFKey.IsSingIN)) {//账号过期或账号未登录
+                    || code == NetConstant.USER_LOGIN_OUT_OK_ERROR) ) {//账号过期或账号未登录
                 EventBus.getDefault().post(new EventEntity(code,e.getMessage(),""));
                 SPfUtil.getInstance().setBoolean(SPFKey.IsSingIN, false);
 //                SPfUtil.getInstance().remove(SPFKey.LoginBean);
