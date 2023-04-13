@@ -12,6 +12,8 @@ import com.example.moduledframe.net.NetConstant;
  * @author wsl
  */
 public class LogUtil {
+
+	 public static boolean  isDebug = false;
 	
 	/** 五种Log日志类型 */
 	
@@ -30,7 +32,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.i(cl.getSimpleName(), message);
 		}
 	}
@@ -39,7 +41,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.v(cl.getSimpleName(), message);
 		}
 	}
@@ -48,7 +50,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.d(cl.getSimpleName(), message);
 		}
 	}
@@ -57,7 +59,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.e(cl.getSimpleName(), message);
 		}
 	}
@@ -66,7 +68,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(Message)){
 			return;
 		}
-		if (NetConstant.LOGON) {
+		if (isDebug) {
 			Log.d(Tag, Message);
 		}
 	}
@@ -75,7 +77,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(Message)){
 			return;
 		}
-		if (NetConstant.LOGON) {
+		if (isDebug) {
 			Log.v(Tag, Message);
 		}
 	}
@@ -87,7 +89,7 @@ public class LogUtil {
 			return;
 		}
 
-		if (NetConstant.LOGON) {
+		if (isDebug) {
 			Log.i(Tag, String.format(format, args));
 		}
 	}
@@ -96,7 +98,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(Message)){
 			return;
 		}
-		if (NetConstant.LOGON) {
+		if (isDebug) {
 			Log.i(Tag, Message);
 		}
 	}
@@ -105,7 +107,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.i(context.getClass().getSimpleName(), message);
 		}
 	}
@@ -114,7 +116,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(message)){
 			return;
 		}
-		if(NetConstant.LOGON){
+		if(isDebug){
 			Log.i(obj.getClass().getSimpleName(), message);
 		}
 	}
@@ -123,7 +125,7 @@ public class LogUtil {
 		if(TextUtils.isEmpty(Message)){
 			return;
 		}
-		if (NetConstant.LOGON) {
+		if (isDebug) {
 			switch (Style) {
 			case DEBUG: {
 				Log.d(Tag, Message);

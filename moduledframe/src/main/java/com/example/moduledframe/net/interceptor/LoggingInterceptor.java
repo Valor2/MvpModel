@@ -3,12 +3,18 @@ package com.example.moduledframe.net.interceptor;
 import android.annotation.SuppressLint;
 
 
+import com.example.moduledframe.net.NetConstant;
 import com.example.moduledframe.net.interceptor.cache.CacheManager;
+import com.example.moduledframe.utils.EventEntity;
 import com.example.moduledframe.utils.LogUtil;
 import com.example.moduledframe.utils.NetworkUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -113,9 +119,17 @@ public class LoggingInterceptor implements Interceptor {
 //            if(requestUrl.contains("immediate_home")){
 //                Log.d("TAG", "intercept: ");
 //            }
+            long endTime = System.nanoTime();
+            Map<String,String> map = new HashMap<>();
+            map.put("url", String.valueOf(response.request().url()));
+            map.put("startTime", String.valueOf(t1));
+            map.put("endTime", String.valueOf(endTime));
+            map.put("totalTime", String.valueOf((endTime- t1) / 1e6d));
+            EventBus.getDefault().post(new EventEntity(NetConstant.QUERY_DATA_TIME,"请求时间",map));
+
             LogUtil.i("net", String.format("返回数据:%n url:%s %n 耗时:%s %n %s",
                     response.request().url(),
-                    (System.nanoTime() - t1) / 1e6d+"",
+                    (endTime - t1) / 1e6d+"",
                     resultData));
         }
 

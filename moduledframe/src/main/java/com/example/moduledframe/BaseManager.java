@@ -3,8 +3,7 @@ package com.example.moduledframe;
 import android.app.Application;
 import android.content.Context;
 
-
-
+import com.example.moduledframe.utils.LogUtil;
 
 
 public class BaseManager {
@@ -33,6 +32,9 @@ public class BaseManager {
         return application;
     }
 
+    public void isDebug(boolean isBoolean){
+        LogUtil.isDebug = isBoolean;
+    }
     /**
      * 初始化ARouter 框架
      */

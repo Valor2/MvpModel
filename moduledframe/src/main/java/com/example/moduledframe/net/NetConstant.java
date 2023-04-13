@@ -3,7 +3,7 @@ package com.example.moduledframe.net;
 
 
 public interface NetConstant {
-    boolean LOGON = true;
+
     /**
      * 网络请求超时时间毫秒
      */
@@ -45,4 +45,6 @@ public interface NetConstant {
     int CONNECT_ERROR = 99996;//连接错误
     int CONNECT_TIMEOUT = 99995;//连接超时
     int UNKNOWN_ERROR = 99994;//未知错误
+
+    int QUERY_DATA_TIME = 1000001;//请求时间
 }

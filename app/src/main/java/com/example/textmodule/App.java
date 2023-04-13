@@ -10,5 +10,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         BaseManager.getInstance().init(this);
+        BaseManager.getInstance().isDebug(true);
     }
 }
