@@ -27,6 +27,7 @@ import com.example.moduledframe.mvpbase.MvpBaseActivity;
 import com.example.moduledframe.mvpbase.presenter.BasePresenter;
 import com.example.moduledframe.utils.ActivityCollector;
 import com.example.moduledframe.utils.AntiShakeUtil;
+import com.example.moduledframe.utils.DisplayUtil;
 import com.example.moduledframe.utils.EventEntity;
 
 import com.example.moduledframe.utils.FontCompatUtils;
@@ -61,6 +62,8 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
     private static LoadingDialogFm loading;
     private Timer_Task loadingTimer;
     private MyHandler mHandler;
+
+    static float fontScale = 1f;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -418,9 +421,18 @@ public abstract class BaseActivity <P extends BasePresenter> extends MvpBaseActi
 
     @Override
     public Resources getResources() {
-        return FontCompatUtils.getResources(super.getResources());
+        Resources resources = super.getResources();
+        return DisplayUtil.getResources(this,resources,fontScale);
+//        return FontCompatUtils.getResources(super.getResources());
     }
 
 
-
+    public void setFontScale(float fontScale) {
+        this.fontScale = fontScale;
+        DisplayUtil.recreate(this);
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(DisplayUtil.attachBaseContext(newBase,fontScale));
+    }
 }
