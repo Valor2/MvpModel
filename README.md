@@ -1,2 +1,2 @@
 # MvpModel
-这个Demo 是采用rxjava2+retrofit2+okhttp3搭建的一个mvp底层库，可以通过集成moduledframe 模块来实现自己的网络请求，app部分是基于moduledframe来写的实现，里面BaseActivity、BaseFragment、BaseDialogFragment都可继承实现逻辑
+这个Demo 是采用rxjava2+retrofit2+okhttp3搭建的一个mvp底层库，可以通过集成moduledframe 模块来实现自己的网络请求，app部分是基于moduledframe来写的实现，里面BaseActivity、BaseFragment、BaseDialogFragment都可继承实现逻辑。也可以把moduledframe包打成aar包，然后上传自己的Maven库里进行依赖处理。让底层变成对外不开放的方案。
